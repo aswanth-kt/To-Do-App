@@ -7,18 +7,18 @@
 
 .container {
     width: 100%;
-    min-width: 100vh;
+    min-height: 100vh;
     height: 100vh;
     background: linear-gradient(134deg, #153677, #4e085f);
     padding: 10px;
 }
 
 .todo-app {
-    width: 100%;
+    width: 90%;
     max-width: 540px;
     background: #fff;
-    margin: 100px auto 20px;
-    padding: 40px 30px 70px;
+    margin: 50px auto 20px;
+    padding: 20px;
     border-radius: 10px;
 }
 
@@ -56,7 +56,7 @@
 .row button {
     border: none;
     outline: none;
-    padding: 16px 50px;
+    padding: 12px 20px;
     background: #ff5945;
     color: #fff;
     font-size: 16px;
@@ -110,4 +110,35 @@ ul li span {
 
 ul li span:hover {
     background: #edeef0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .todo-app {
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    .row button {
+        padding: 10px 15px;
+    }
+
+    ul li {
+        font-size: 14px;
+        padding: 10px 6px 10px 40px;
+    }
+
+    ul li::before {
+        height: 20px;
+        width: 20px;
+        top: 10px;
+        left: 5px;
+    }
+
+    ul li span {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        line-height: 30px;
+    }
 }
