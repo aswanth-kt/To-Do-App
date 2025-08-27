@@ -17,7 +17,7 @@ function addTask() {
         // Dragable
         let imgDrag = document.createElement("img");
         imgDrag.src = "assets/images/drag.png";
-        // span.appendChild(imgDrag);
+        li.appendChild(imgDrag);
         li.setAttribute("draggable", "true");
     }
     inputBox.value = "";
@@ -65,14 +65,14 @@ displayTask();
 let select = null;
 
 listContainer.addEventListener("dragstart", (e) => {
-    if (e.target.tagName === "LI") {
+    if (e.target.tagName === "IMG || LI") {
         select = e.target;
         e.target.classList.add("dragging");
     }
 });
 
 listContainer.addEventListener("dragend", (e) => {
-    if (e.target.tagName === "LI") {
+    if (e.target.tagName === "IMG || LI") {
         e.target.classList.remove("dragging");
     }
 });
