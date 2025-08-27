@@ -13,6 +13,12 @@ function addTask() {
         let span = document.createElement("span");
         span.innerHTML = "\u00d7";
         li.appendChild(span);
+
+        // Dragable
+        let imgDrag = document.createElement("img");
+        imgDrag.src = "assets/images/drag.png";
+        // span.appendChild(imgDrag);
+        li.setAttribute("draggable", "true");
     }
     inputBox.value = "";
     saveTask();
@@ -37,3 +43,66 @@ function displayTask() {
     listContainer.innerHTML = localStorage.getItem("task");
 };
 displayTask();
+
+
+// let select = null;
+// listContainer.addEventListener("dragstart", (e) => {
+//     select = e.target
+//     console.log(e)
+// })
+
+// listContainer.addEventListener("dragover", (e) => {
+//     e.preventDefault();
+// })
+
+// listContainer.addEventListener ("drop", (e) => {
+//     listContainer.appendChild(select);
+//     select = null;
+//     saveTask();
+// })
+
+
+let select = null;
+
+listContainer.addEventListener("dragstart", (e) => {
+    if (e.target.tagName === "LI") {
+        select = e.target;
+        e.target.classList.add("dragging");
+    }
+});
+
+listContainer.addEventListener("dragend", (e) => {
+    if (e.target.tagName === "LI") {
+        e.target.classList.remove("dragging");
+    }
+});
+
+listContainer.addEventListener("dragover", (e) => {
+    e.preventDefault();
+
+    const afterElement = getDragAfterElement(listContainer, e.clientY);
+    const dragging = document.querySelector(".dragging");
+
+    if (afterElement == null) {
+        listContainer.appendChild(dragging);
+        saveTask();
+    } else {
+        listContainer.insertBefore(dragging, afterElement);
+        saveTask();
+    }
+});
+
+function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll("li:not(.dragging)")];
+
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
