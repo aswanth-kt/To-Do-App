@@ -64,8 +64,7 @@ displayTask();
 // })
 
 
-let IMG = "IMG";
-let LI = "LI"
+
 let select = null;
 listContainer.addEventListener("dragstart", (e) => {
     if (e.target.tagName === "LI") {
